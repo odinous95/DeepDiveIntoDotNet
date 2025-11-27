@@ -1,6 +1,8 @@
+
 using LearningApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,15 +11,18 @@ var app = builder.Build();
 // Middleware 
 app.UseRouting();
 
+
 app.UseEndpoints(static endpoints =>
 {
-    _ = endpoints.MapGet("/players/{id:int}",  ([AsParameters] PlayerParameterFromReq param) =>
+      
+    _ = endpoints.MapGet("/player/{id:int}", (int id) =>
     {
-        Player player =  PlayersRepositoryInMomoeryDB.GetPlayerById(param.id);
-        Console.WriteLine($"this is the position from query string {param.position}");
-        Console.WriteLine(param.name);
-        return player;
+        Player player = PlayersRepositoryInMomoeryDB.GetPlayerById(id);
+        return player is not null ? TypedResults.Ok(player) : Results.ValidationProblem(new Dictionary<string, string[]>
+        {
+            {"id", new[] {$"Player with the id {id} does not "} }
     });
+});
 });
 
 app.Run();
