@@ -20,7 +20,7 @@ app.UseEndpoints(static endpoints =>
         Player player = PlayersRepositoryInMomoeryDB.GetPlayerById(id);
         return player is not null ? TypedResults.Ok(player) : Results.ValidationProblem(new Dictionary<string, string[]>
         {
-            {"id", new[] {$"Player with the id {id} does not "} }
+            {"id", new[] {$"Player with the id {id} does not exist "} }
     });
 });
 });
