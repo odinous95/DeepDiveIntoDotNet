@@ -26,19 +26,3 @@ app.UseEndpoints(static endpoints =>
 });
 
 app.Run();
-
-
-
-struct PlayerParameterFromReq
-{
-    [FromRoute]
-    [Required]
-    public int id { get; set; }
-    [FromHeader]
-    public string name { get; set; }
-    [FromQuery]
-    public string position { get; set; }
-};
-
-
-
