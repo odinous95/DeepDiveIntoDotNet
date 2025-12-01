@@ -1,4 +1,3 @@
-
 using LearningApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
@@ -26,14 +25,14 @@ app.UseEndpoints(static endpoints =>
             });
     });
       
-    _ = endpoints.MapGet("/player/{id:int}", (int id) =>
+    _ = endpoints.MapGet("/players", () =>
     {
         List<Player> players = PlayersRepositoryInMomoeryDB.GetPlayers();
         return players is not null
             ? TypedResults.Ok(players)
             : Results.ValidationProblem(new Dictionary<string, string[]>
         {
-            {"id", new[] {$"Player with the id {id} does not exist "} }
+                { "players", new[] { "Players do not exist!" } }
     });
 });
 });
